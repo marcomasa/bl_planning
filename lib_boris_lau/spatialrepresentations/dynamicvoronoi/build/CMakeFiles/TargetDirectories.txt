@@ -1,4 +1,0 @@
-/home/marco/repos/spatialrepresentations/dynamicvoronoi/build/CMakeFiles/rebuild_cache.dir
-/home/marco/repos/spatialrepresentations/dynamicvoronoi/build/CMakeFiles/edit_cache.dir
-/home/marco/repos/spatialrepresentations/dynamicvoronoi/build/CMakeFiles/example.dir
-/home/marco/repos/spatialrepresentations/dynamicvoronoi/build/CMakeFiles/dynamicvoronoi.dir

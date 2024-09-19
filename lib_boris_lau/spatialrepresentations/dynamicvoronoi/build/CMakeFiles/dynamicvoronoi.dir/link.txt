@@ -1,2 +1,0 @@
-/usr/bin/ar qc /home/marco/repos/spatialrepresentations/dynamicvoronoi/lib/libdynamicvoronoi.a  CMakeFiles/dynamicvoronoi.dir/dynamicvoronoi.cpp.o
-/usr/bin/ranlib /home/marco/repos/spatialrepresentations/dynamicvoronoi/lib/libdynamicvoronoi.a

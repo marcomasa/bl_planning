@@ -1,1 +1,0 @@
-/usr/bin/c++   -Wall -O2  -rdynamic CMakeFiles/example.dir/example.cpp.o  -o /home/marco/repos/spatialrepresentations/dynamicvoronoi/bin/example  /home/marco/repos/spatialrepresentations/dynamicvoronoi/lib/libdynamicvoronoi.a 

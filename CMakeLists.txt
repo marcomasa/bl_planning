@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.2)
 project(cf_global_planner)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++17 -O2)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -18,6 +18,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   tf
 )
+
+set(bl_lib "lib_boris_lau/spatialrepresentations")
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -109,9 +111,9 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES cf_global_planner
-#  CATKIN_DEPENDS costmap_2d geometry_msgs global_planner nav_core nav_msgs pcl_conversions pcl_ros roscpp tf
+  INCLUDE_DIRS include
+  LIBRARIES cf_global_planner
+  CATKIN_DEPENDS costmap_2d geometry_msgs global_planner nav_core nav_msgs pcl_conversions pcl_ros roscpp tf
 #  DEPENDS system_lib
 )
 
@@ -122,14 +124,31 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
+  ${bl_lib}/cspacevoronoi2.5D/src
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
-# add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/cf_global_planner.cpp
-# )
+#add_library(${PROJECT_NAME}
+#  lib_boris_lau/spatialrepresentations/cspacevoronoi2.5D/src/${PROJECT_NAME}/cf_global_planner.cpp
+#)
+
+add_library(cspacevoro25d
+  ${bl_lib}/cspacevoronoi2.5D/src/dynamicvoronoi.cpp
+  ${bl_lib}/cspacevoronoi2.5D/src/cspacevoronoilayer.cpp
+  ${bl_lib}/cspacevoronoi2.5D/src/cspacevoronoi.cpp
+  )
+
+add_dependencies(cspacevoro25d ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_executable(csp_example ${bl_lib}/cspacevoronoi2.5D/src/example.cpp)
+add_dependencies(csp_example ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(csp_example
+   ${catkin_LIBRARIES}
+   cspacevoro25d
+)
+
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
