@@ -1,0 +1,9 @@
+<library path="lib/libc_space_planner">
+    <class name="cf_global_planner/CspacePlanner" 
+           type="cf_global_planner::CspacePlanner" 
+           base_class_type="nav_core::BaseGlobalPlanner">
+        <description>
+            cf_global_planner/CspacePlanner - collision free path planner for non-circular robots
+        </description>
+    </class>
+</library>

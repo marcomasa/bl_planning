@@ -134,6 +134,7 @@ include_directories(
 #  lib_boris_lau/spatialrepresentations/cspacevoronoi2.5D/src/${PROJECT_NAME}/cf_global_planner.cpp
 #)
 
+## bl lib 1
 add_library(cspacevoro25d
   ${bl_lib}/cspacevoronoi2.5D/src/dynamicvoronoi.cpp
   ${bl_lib}/cspacevoronoi2.5D/src/cspacevoronoilayer.cpp
@@ -142,11 +143,27 @@ add_library(cspacevoro25d
 
 add_dependencies(cspacevoro25d ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+## example for bl lib 1
 add_executable(csp_example ${bl_lib}/cspacevoronoi2.5D/src/example.cpp)
 add_dependencies(csp_example ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(csp_example
    ${catkin_LIBRARIES}
    cspacevoro25d
+)
+
+## global plugin for bl lib 1
+add_library(
+  c_space_planner
+  src/CspacePlanner.cpp
+)
+add_dependencies(
+  c_space_planner
+  ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  ${catkin_EXPORTED_TARGETS}
+)
+target_link_libraries(
+  c_space_planner
+  ${catkin_LIBRARIES}
 )
 
 
