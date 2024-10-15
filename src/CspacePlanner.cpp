@@ -37,8 +37,15 @@ void CspacePlanner::initialize(std::string name, costmap_2d::Costmap2D *costmap,
     for (unsigned int x = 0; x < costmap->getSizeInCellsX(); x++) {
       for (unsigned int y = 0; x < costmap->getSizeInCellsY(); y++) {
         int cell_value = static_cast<int>(costmap->getCost(x, y));
-        // room to modify the value (binary?)
-        map.setCell(x, y, cell_value);
+
+        if(cell_value >= costmap_2d::LETHAL_OBSTACLE)
+        {
+          map.setCell(x, y, 0);
+        }
+        else
+        {
+          map.setCell(x, y, INT_MAX);
+        }
       }
     }
 
@@ -46,7 +53,21 @@ void CspacePlanner::initialize(std::string name, costmap_2d::Costmap2D *costmap,
                                    << (ros::Time::now() - t_conversion).toSec()
                                    << "s");
 
+    // seems like the code only supports rectangular robots
+
+    double robot_length = 1.0;
+    double robot_width = 1.0;
+
     std::vector<RobotColumn> columns;
+    RobotColumn col;
+    col.lower = 0;
+    col.upper = 1;
+    col.x1 = robot_length / 2.0;
+    col.x2 = -robot_length / 2.0;
+    col.y1 = -robot_width / 2.0;
+    col.y2 = robot_width / 2.0;
+
+    columns.push_back(col);
 
     cspacevoronoi_ = std::make_shared<CSpaceVoronoi>(columns, &map);
   }
