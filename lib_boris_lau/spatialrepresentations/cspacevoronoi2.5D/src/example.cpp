@@ -29,12 +29,21 @@ int main( int argc, char* argv[] ) {
 	col.y1 = -(double)width/2.0;
 	col.y2 = (double)width/2.0;
 	columns.push_back(col);
+ 	
+	// col 0
+	// _____   x
+	// |___|   0
+	
 
 	col.upper = 2;
 	col.x1 = -(double)length/2.0;
 	col.x2 = 0;
 	columns.push_back(col);
 
+	// col 1
+	//  ___     0
+	// |_|_|    -x
+	
 
 
 	SimpleMap<int> map;

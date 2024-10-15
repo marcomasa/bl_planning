@@ -293,18 +293,33 @@ void CSpaceVoronoi::brushfireExpandLayer(int x, int y, int theta, bool makeGoalB
     q.pop();
     int x = p.x;
     int y = p.y;
-    
-    for (int dx=-1; dx<=1; dx++) {
+
+    for (int dx = -1; dx <= 1; dx++) {
+      // NEW X
       int nx = x+dx;
+
+      // PREVENT OUT OF BOUNDS
       if (nx<0 || nx>=sizeX) continue;
-      for (int dy=-1; dy<=1; dy++) {
+
+      for (int dy = -1; dy <= 1; dy++) {
+        // NEW Y
         int ny = y+dy;
+
+        // WHAT SKIPS THIS? SEEMS LIKE DIAGONALS?
         if (dx && dy) continue;
+
+        // PREVENT OUT OF BOUNDS
         if (ny<0 || ny>=sizeY) continue;
+
+        // NEW POINT n
         IntPoint n = IntPoint(nx, ny);
-          
+
+        // FIND OBSTACLES AND DONT PROGRESS THEM
         if (layer->getSqrDistance(nx,ny)<1) continue;
+
         IntPose nPose = IntPose(nx, ny, theta);
+
+        // COUNT OBSTACLES AT A POSE AND DONT PROGRESS IF THERE ARE SOME
         if (nodeMap->count(nPose)>0) continue;
         //        if (nd) continue;
 
@@ -329,7 +344,7 @@ void CSpaceVoronoi::brushfireExpandLayer(int x, int y, int theta, bool makeGoalB
         (*nodeMap)[nPose] = nd;
         if (!isVoronoi) q.push(n);
       }
-    }      
+    }
   }
 }
 
